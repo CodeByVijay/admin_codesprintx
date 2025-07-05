@@ -25,6 +25,6 @@ class DashboardController extends Controller
 
         //     // Return the dashboard view, passing any necessary data
         //     return view('dashboard.index', compact('totalUsers', 'totalPosts', 'latestPosts', 'breadcrumbs', 'pageTitle'));
-        return view('backend.dashboard');
+        return view('pages.dashboard');
     }
 }

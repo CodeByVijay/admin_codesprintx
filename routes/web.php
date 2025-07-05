@@ -10,8 +10,8 @@ Route::get('/', function () {
 })->name('login');
 
 // AuthController Routes
-Route::get('login',[AuthController::class,'login'])->name('login');
-Route::post('loginPost',[AuthController::class,'loginPost'])->name('loginPost');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('loginPost', [AuthController::class, 'loginPost'])->name('loginPost');
 
 
 // Protected Routes

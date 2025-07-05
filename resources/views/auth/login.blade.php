@@ -10,17 +10,17 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('asset/backend/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('asset/backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('asset/backend/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/dist/css/adminlte.min.css') }}">
 </head>
 
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ asset('asset/backend/index2.html') }}"><b>Code</b>Sprinx</a>
+            <a href="{{ asset('asset/index2.html') }}"><b>Code</b>Sprinx</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -77,10 +77,10 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ asset('asset/backend/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('asset/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset/backend/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('asset/dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>
