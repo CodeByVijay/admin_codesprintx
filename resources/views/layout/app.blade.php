@@ -18,6 +18,13 @@
         href="{{ asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+    {{-- DataTables --}}
+    <link rel="stylesheet" href="{{ asset('asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
+
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
@@ -28,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('asset/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/summernote/summernote-bs4.min.css') }}">
+     <link rel="stylesheet" href="{{ asset('asset/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
 
     @stack('style')
 
@@ -37,27 +45,27 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        {{-- <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('asset/dist/img/AdminLTELogo.png') }}"
-                alt="AdminLTELogo" height="60" width="60">
-        </div> --}}
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{{ asset('asset/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+                height="60" width="60">
+        </div>
 
         @include('layout.header')
-          @include('layout.sidebar')
+
+        @include('layout.sidebar')
 
         <div class="content-wrapper">
             @yield('content')
         </div>
 
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; <?php date('Y'); ?> <a
-                    href="https://codesprintx.com/">codesprintx.com</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b>V1
-            </div>
-        </footer>
+        @include('layout.footer')
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+
     </div>
     <!-- ./wrapper -->
 
@@ -84,18 +92,36 @@
     <script src="{{ asset('asset/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('asset/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
-    </script>
+    <script src="{{ asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Summernote -->
     <script src="{{ asset('asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('asset/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('asset/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    {{-- Bootstrap Color Picker --}}
+    <script src="{{ asset('asset/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+
+
     <!-- AdminLTE App -->
     <script src="{{ asset('asset/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('asset/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('asset/dist/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('asset/dist/js/pages/dashboard.js') }}"></script> --}}
 
     @stack('script')
 </body>

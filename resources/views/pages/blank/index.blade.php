@@ -13,13 +13,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                     <div class="card card-outline card-info">
+                    <div class="card card-outline card-info">
                         <div class="card-header">
                             <h3 class="card-title">Bordered Table</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table id="example1" class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -56,3 +56,24 @@
     </section>
 
 @endsection
+@push('script')
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+@endpush
