@@ -1,12 +1,12 @@
 @extends('layout.app')
-@section('title', 'Edit Program')
+@section('title', 'Edit Course')
 @section('content')
     {{-- breadcrumb --}}
     <x-breadcrumb :items="[
         ['label' => 'Home', 'url' => route('dashboard')],
-        ['label' => 'Programs', 'url' => route('courses.index')],
-        ['label' => 'Edit Program', 'url' => '#'],
-    ]" title="Edit Program" backUrl="{{ route('courses.index') }}" />
+        ['label' => 'Courses', 'url' => route('courses.index')],
+        ['label' => 'Edit Course', 'url' => '#'],
+    ]" title="Edit Course" backUrl="{{ route('courses.index') }}" />
 
     <section class="content">
         @include('layout.flash-message')
@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="card card-outline card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Program</h3>
+                    <h3 class="card-title">Edit Course</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
@@ -31,9 +31,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="programName">Program Name <span class="text-danger">*</span></label>
+                                    <label for="programName">Course Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="title" id="programName"
-                                        placeholder="Enter Program Name" minlength="5" maxlength="100" required
+                                        placeholder="Enter Course Name" minlength="5" maxlength="100" required
                                         value="{{ old('title', $course->title) }}">
                                     @error('title')
                                         <span class="text-danger">{{ $message }}</span>
@@ -42,10 +42,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="programDescription">Program Description(Short) <span
+                                    <label for="programDescription">Course Description(Short) <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="short_desc" id="programDescription"
-                                        placeholder="Enter Program Short Description" minlength="20" maxlength="300"
+                                        placeholder="Enter Course Short Description" minlength="20" maxlength="300"
                                         required value="{{ old('short_desc', $course->short_desc) }}">
                                     @error('short_desc')
                                         <span class="text-danger">{{ $message }}</span>
@@ -54,10 +54,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="programSkills">Program Skills (comma separated) <span
+                                    <label for="programSkills">Course Skills (comma separated) <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="skills" id="programSkills"
-                                        placeholder="Enter Program Skills comma separated e.g. HTML,CSS,JS,PHP" required
+                                        placeholder="Enter Course Skills comma separated e.g. HTML,CSS,JS,PHP" required
                                         value="{{ old('skills', (is_array($course->skills) ? implode(',', $course->skills) : (is_string($course->skills) && str_starts_with($course->skills, '[') ? implode(',', json_decode($course->skills, true)) : $course->skills))) }}">
                                     @error('skills')
                                         <span class="text-danger">{{ $message }}</span>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="programDescription">Program Description(Long) <span
+                                    <label for="programDescription">Course Description(Long) <span
                                             class="text-danger">*</span></label>
                                     <textarea id="summernote" name="long_desc" placeholder="Write Long Description">{{ old('long_desc', $course->long_desc) }}</textarea>
                                     @error('long_desc')
@@ -122,8 +122,9 @@
                                             <div class="form-group">
                                                 <label for="original_price_3_month">3 Month Normal Price <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="original_price_3_month"
+                                                <input type="number" class="form-control price-input" name="original_price_3_month"
                                                     id="original_price_3_month" placeholder="Enter 3 Month Normal Price"
+                                                    step="0.01" min="0" pattern="^\d+(\.\d{1,2})?$"
                                                     required
                                                     value="{{ old('original_price_3_month', $course->original_price_3_month) }}">
                                                 @error('original_price_3_month')
@@ -135,8 +136,9 @@
                                             <div class="form-group">
                                                 <label for="price_3_month">3 Month Discounted Price <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="price_3_month"
+                                                <input type="number" class="form-control price-input" name="price_3_month"
                                                     id="price_3_month" placeholder="Enter 3 Month Discounted Price"
+                                                    step="0.01" min="0" pattern="^\d+(\.\d{1,2})?$"
                                                     required value="{{ old('price_3_month', $course->price_3_month) }}">
                                                 @error('price_3_month')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -147,8 +149,9 @@
                                             <div class="form-group">
                                                 <label for="original_price_6_month">6 Month Normal Price <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="original_price_6_month"
+                                                <input type="number" class="form-control price-input" name="original_price_6_month"
                                                     id="original_price_6_month" placeholder="Enter 6 Month Normal Price"
+                                                    step="0.01" min="0" pattern="^\d+(\.\d{1,2})?$"
                                                     required
                                                     value="{{ old('original_price_6_month', $course->original_price_6_month) }}">
                                                 @error('original_price_6_month')
@@ -160,8 +163,9 @@
                                             <div class="form-group">
                                                 <label for="price_6_month">6 Month Discounted Price <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="price_6_month"
+                                                <input type="number" class="form-control price-input" name="price_6_month"
                                                     id="price_6_month" placeholder="Enter 6 Month Discounted Price"
+                                                    step="0.01" min="0" pattern="^\d+(\.\d{1,2})?$"
                                                     required value="{{ old('price_6_month', $course->price_6_month) }}">
                                                 @error('price_6_month')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -314,7 +318,27 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
+                            {{-- Course Status --}}
+                            <div class="col-md-12 mt-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Course Status</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="1" {{ old('is_active', $course->is_active) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="is_active">
+                                                    <span class="text-success font-weight-bold">Active</span>
+                                                    <small class="text-muted d-block">Toggle to make this course active or inactive</small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card-footer float-right">
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -490,6 +514,63 @@
                     time: 'far fa-clock'
                 },
                 format: 'YYYY-MM-DD HH:mm:ss'
+            });            // Price input validation - only allow decimal numbers
+            $('.price-input').on('input', function() {
+                const input = this;
+                const currentPos = input.selectionStart;
+                let value = $(this).val();
+                const originalLength = value.length;
+
+                // Remove any non-numeric characters except decimal point
+                value = value.replace(/[^0-9.]/g, '');
+
+                // Ensure only one decimal point
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+
+                // Limit to 2 decimal places
+                if (parts[1] && parts[1].length > 2) {
+                    value = parts[0] + '.' + parts[1].substring(0, 2);
+                }
+
+                // Only update if value changed
+                if ($(this).val() !== value) {
+                    $(this).val(value);
+                    // Restore cursor position
+                    const newLength = value.length;
+                    const newPos = currentPos - (originalLength - newLength);
+                    input.setSelectionRange(Math.max(0, newPos), Math.max(0, newPos));
+                }
+            });
+
+            // Prevent non-numeric input on keypress
+            $('.price-input').on('keypress', function(e) {
+                const value = $(this).val();
+
+                // Allow: backspace, delete, tab, escape, enter
+                if ([8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
+                    // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                    (e.keyCode === 65 && e.ctrlKey === true) ||
+                    (e.keyCode === 67 && e.ctrlKey === true) ||
+                    (e.keyCode === 86 && e.ctrlKey === true) ||
+                    (e.keyCode === 88 && e.ctrlKey === true)) {
+                    return;
+                }
+
+                // Allow decimal point only if there isn't one already
+                if (e.keyCode === 46) {
+                    if (value.indexOf('.') !== -1) {
+                        e.preventDefault();
+                    }
+                    return;
+                }
+
+                // Only allow numbers (0-9)
+                if (e.keyCode < 48 || e.keyCode > 57) {
+                    e.preventDefault();
+                }
             });
         });
     </script>

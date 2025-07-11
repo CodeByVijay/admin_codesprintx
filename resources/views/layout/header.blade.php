@@ -139,6 +139,39 @@
              </a>
          </li>
 
+         <!-- User Profile Dropdown -->
+         <li class="nav-item dropdown">
+             <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+                 <div class="d-flex align-items-center">
+                     <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mr-2" style="width: 30px; height: 30px;">
+                         <i class="fas fa-user text-white"></i>
+                     </div>
+                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                     <i class="fas fa-chevron-down ml-1"></i>
+                 </div>
+             </a>
+             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                 <div class="dropdown-header bg-light">
+                     <strong>{{ Auth::user()->name }}</strong><br>
+                     <small class="text-muted">{{ Auth::user()->email }}</small>
+                 </div>
+                 <div class="dropdown-divider"></div>
+                 <a href="#" class="dropdown-item">
+                     <i class="fas fa-user mr-2"></i> Profile
+                 </a>
+                 <a href="#" class="dropdown-item">
+                     <i class="fas fa-cog mr-2"></i> Settings
+                 </a>
+                 <div class="dropdown-divider"></div>
+                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                     @csrf
+                     <button type="submit" class="dropdown-item text-danger">
+                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                     </button>
+                 </form>
+             </div>
+         </li>
+
          {{-- Control Sidebar --}}
          {{-- <li class="nav-item">
              <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

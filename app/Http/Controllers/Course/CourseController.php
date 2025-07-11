@@ -12,9 +12,20 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::orderByDesc('created_at')->get();
+        $query = Course::orderByDesc('created_at');
+
+        // Filter by status if provided
+        if ($request->has('status')) {
+            if ($request->status === 'active') {
+                $query->active();
+            } elseif ($request->status === 'inactive') {
+                $query->inactive();
+            }
+        }
+
+        $courses = $query->get();
         return view('pages.course.index', compact('courses'));
     }
 
@@ -52,14 +63,20 @@ class CourseController extends Controller
             'projects.*.description' => 'required|string|max:255',
             'what_you_learn' => 'nullable|array',
             'what_you_learn.*' => 'required|string|max:255',
-            'price_3_month' => 'nullable|numeric|min:0',
-            'price_6_month' => 'nullable|numeric|min:0',
-            'original_price_3_month' => 'nullable|numeric|min:0',
-            'original_price_6_month' => 'nullable|numeric|min:0',
+            'price_3_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'price_6_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'original_price_3_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'original_price_6_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
             'offer_end_at' => 'nullable|date|after:now',
             'meta_description' => 'nullable|string|max:255',
             'meta_keywords' => 'nullable|string|max:255',
+        ], [
+            'price_3_month.regex' => 'The 3 month price must be a valid decimal number with up to 2 decimal places.',
+            'price_6_month.regex' => 'The 6 month price must be a valid decimal number with up to 2 decimal places.',
+            'original_price_3_month.regex' => 'The 3 month normal price must be a valid decimal number with up to 2 decimal places.',
+            'original_price_6_month.regex' => 'The 6 month normal price must be a valid decimal number with up to 2 decimal places.',
         ]);
+
         try {
             // Sanitize and prepare data
             $skills = array_map('trim', explode(',', $validated['skills']));
@@ -80,13 +97,14 @@ class CourseController extends Controller
                 'skills' => json_encode($skills),
                 'projects' => json_encode($projects),
                 'what_you_learn' => json_encode($whatYouLearn),
-                'price_3_month' => $validated['price_3_month'] ?? null,
-                'price_6_month' => $validated['price_6_month'] ?? null,
-                'original_price_3_month' => $validated['original_price_3_month'] ?? null,
-                'original_price_6_month' => $validated['original_price_6_month'] ?? null,
+                'price_3_month' => $validated['price_3_month'],
+                'price_6_month' => $validated['price_6_month'],
+                'original_price_3_month' => $validated['original_price_3_month'],
+                'original_price_6_month' => $validated['original_price_6_month'],
                 'offer_end_at' => $validated['offer_end_at'] ?? null,
                 'meta_description' => $validated['meta_description'] ?? null,
                 'meta_keywords' => $validated['meta_keywords'] ?? null,
+                'is_active' => $request->has('is_active') ? true : false,
             ]);
 
             return redirect()->route('courses.index')->with('success', 'Course created successfully.');
@@ -139,14 +157,20 @@ class CourseController extends Controller
             'projects.*.description' => 'required|string|max:255',
             'what_you_learn' => 'nullable|array',
             'what_you_learn.*' => 'required|string|max:255',
-            'price_3_month' => 'nullable|numeric|min:0',
-            'price_6_month' => 'nullable|numeric|min:0',
-            'original_price_3_month' => 'nullable|numeric|min:0',
-            'original_price_6_month' => 'nullable|numeric|min:0',
+            'price_3_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'price_6_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'original_price_3_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
+            'original_price_6_month' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/|min:0',
             'offer_end_at' => 'nullable|date|after:now',
             'meta_description' => 'nullable|string|max:255',
             'meta_keywords' => 'nullable|string|max:255',
+        ], [
+            'price_3_month.regex' => 'The 3 month price must be a valid decimal number with up to 2 decimal places.',
+            'price_6_month.regex' => 'The 6 month price must be a valid decimal number with up to 2 decimal places.',
+            'original_price_3_month.regex' => 'The 3 month normal price must be a valid decimal number with up to 2 decimal places.',
+            'original_price_6_month.regex' => 'The 6 month normal price must be a valid decimal number with up to 2 decimal places.',
         ]);
+
         try {
             $course = Course::findOrFail($id);
             $skills = array_map('trim', explode(',', $validated['skills']));
@@ -155,6 +179,7 @@ class CourseController extends Controller
             $whatYouLearn = isset($validated['what_you_learn']) ? array_values(array_filter($validated['what_you_learn'], fn($v) => $v !== null && $v !== '')) : [];
             $short_desc = strip_tags($validated['short_desc']);
             $long_desc = strip_tags($validated['long_desc']);
+
             $course->update([
                 'title' => $validated['title'],
                 'slug' => Str::slug($validated['title']),
@@ -165,14 +190,16 @@ class CourseController extends Controller
                 'skills' => json_encode($skills),
                 'projects' => json_encode($projects),
                 'what_you_learn' => json_encode($whatYouLearn),
-                'price_3_month' => $validated['price_3_month'] ?? null,
-                'price_6_month' => $validated['price_6_month'] ?? null,
-                'original_price_3_month' => $validated['original_price_3_month'] ?? null,
-                'original_price_6_month' => $validated['original_price_6_month'] ?? null,
+                'price_3_month' => $validated['price_3_month'],
+                'price_6_month' => $validated['price_6_month'],
+                'original_price_3_month' => $validated['original_price_3_month'],
+                'original_price_6_month' => $validated['original_price_6_month'],
                 'offer_end_at' => $validated['offer_end_at'] ?? null,
                 'meta_description' => $validated['meta_description'] ?? null,
                 'meta_keywords' => $validated['meta_keywords'] ?? null,
+                'is_active' => $request->has('is_active') ? true : false,
             ]);
+
             return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'An error occurred while updating the course.' . $e->getMessage()])->withInput();
@@ -187,5 +214,21 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $course->delete();
         return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
+    }
+
+    /**
+     * Toggle the active status of the specified course.
+     */
+    public function toggleStatus(string $id)
+    {
+        try {
+            $course = Course::findOrFail($id);
+            $course->toggleStatus();
+
+            $status = $course->is_active ? 'activated' : 'deactivated';
+            return redirect()->route('courses.index')->with('success', "Course {$status} successfully.");
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred while updating course status.']);
+        }
     }
 }

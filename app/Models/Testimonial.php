@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Course extends Model
+class Testimonial extends Model
 {
     use SoftDeletes;
+
     protected $guarded = ['id'];
 
     public $incrementing = false;
@@ -18,8 +19,8 @@ class Course extends Model
      * The attributes that should be cast to native types.
      */
     protected $casts = [
-        'offer_end_at' => 'datetime',
-        'is_active' => 'boolean'
+        'is_featured' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     protected static function boot()
@@ -33,7 +34,7 @@ class Course extends Model
     }
 
     /**
-     * Scope a query to only include active courses.
+     * Scope a query to only include active testimonials.
      */
     public function scopeActive($query)
     {
@@ -41,20 +42,10 @@ class Course extends Model
     }
 
     /**
-     * Scope a query to only include inactive courses.
+     * Scope a query to only include featured testimonials.
      */
-    public function scopeInactive($query)
+    public function scopeFeatured($query)
     {
-        return $query->where('is_active', false);
-    }
-
-    /**
-     * Toggle the active status of the course.
-     */
-    public function toggleStatus()
-    {
-        $this->is_active = !$this->is_active;
-        $this->save();
-        return $this;
+        return $query->where('is_featured', true);
     }
 }

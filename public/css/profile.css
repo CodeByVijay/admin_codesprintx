@@ -1,0 +1,207 @@
+/* Custom Profile Styles */
+
+.profile-user-img {
+    border: 3px solid #adb5bd;
+    margin: 0 auto;
+    padding: 3px;
+}
+
+.profile-username {
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.timeline {
+    position: relative;
+    margin: 0 0 30px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #dee2e6;
+    left: 31px;
+    margin: 0;
+    border-radius: 2px;
+}
+
+.timeline > li {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.timeline > li:before,
+.timeline > li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline > li:after {
+    clear: both;
+}
+
+.timeline > li > .timeline-item {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-left: 60px;
+    padding: 5px;
+    position: relative;
+}
+
+.timeline > li > .fa,
+.timeline > li > .fas,
+.timeline > li > .far,
+.timeline > li > .fab,
+.timeline > li > .fal,
+.timeline > li > .fad,
+.timeline > li > .svg-inline--fa,
+.timeline > li > .glyphicon,
+.timeline > li > .ion {
+    background: #adb5bd;
+    border-radius: 50%;
+    font-size: 16px;
+    height: 30px;
+    left: 18px;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 30px;
+}
+
+.timeline > .time-label > span {
+    background-color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 600;
+    margin-left: 60px;
+    padding: 5px;
+}
+
+.timeline-header {
+    border-bottom: 1px solid #dee2e6;
+    color: #495057;
+    font-size: 16px;
+    line-height: 1.1;
+    margin: 0;
+    padding: 10px;
+}
+
+.timeline-body,
+.timeline-footer {
+    padding: 10px;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.password-strength.weak {
+    background-color: #dc3545;
+    width: 33%;
+}
+
+.password-strength.medium {
+    background-color: #ffc107;
+    width: 66%;
+}
+
+.password-strength.strong {
+    background-color: #28a745;
+    width: 100%;
+}
+
+/* Image upload preview */
+.image-upload-preview {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-upload-preview:hover {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.image-upload-preview.dragover {
+    border-color: #007bff;
+    background-color: #e3f2fd;
+}
+
+/* Profile card enhancements */
+.profile-card {
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+
+.profile-card .card-header {
+    border-radius: 15px 15px 0 0;
+}
+
+.profile-info-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.profile-info-card .card-header {
+    border-bottom: none;
+    background: transparent;
+    color: white;
+}
+
+/* Custom button styles */
+.btn-profile {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline > li > .timeline-item {
+        margin-left: 40px;
+    }
+
+    .timeline > .time-label > span {
+        margin-left: 40px;
+    }
+
+    .timeline:before {
+        left: 21px;
+    }
+
+    .timeline > li > .fa,
+    .timeline > li > .fas,
+    .timeline > li > .far,
+    .timeline > li > .fab,
+    .timeline > li > .fal,
+    .timeline > li > .fad,
+    .timeline > li > .svg-inline--fa,
+    .timeline > li > .glyphicon,
+    .timeline > li > .ion {
+        left: 8px;
+    }
+}

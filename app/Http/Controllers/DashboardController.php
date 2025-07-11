@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,20 +13,21 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //   // Example: Fetch some data for the dashboard
-        //     $totalUsers = User::count();
-        //     $totalPosts = Post::count();
-        //     $latestPosts = Post::orderBy('created_at', 'desc')->take(5)->get();
+        // Fetch dashboard statistics
+        $totalCourses = Course::count();
+        $activeCourses = Course::active()->count();
+        $inactiveCourses = Course::inactive()->count();
+        $totalTestimonials = Testimonial::count();
+        $recentCourses = Course::orderBy('created_at', 'desc')->take(5)->get();
+        $featuredTestimonials = Testimonial::where('is_featured', true)->take(3)->get();
 
-        //     // You can also define breadcrumbs and page title here
-        //     $breadcrumbs = [
-        //         ['label' => 'Home', 'url' => route('home')],
-        //         ['label' => 'Dashboard', 'url' => '']
-        //     ];
-        //     $pageTitle = 'Admin Dashboard';
-
-        //     // Return the dashboard view, passing any necessary data
-        //     return view('dashboard.index', compact('totalUsers', 'totalPosts', 'latestPosts', 'breadcrumbs', 'pageTitle'));
-        return view('pages.dashboard');
+        return view('pages.dashboard', compact(
+            'totalCourses',
+            'activeCourses',
+            'inactiveCourses',
+            'totalTestimonials',
+            'recentCourses',
+            'featuredTestimonials'
+        ));
     }
 }
