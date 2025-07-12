@@ -15,12 +15,15 @@ class superAdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => "Nita Bopche",
+            'first_name' => "Super",
+            'last_name' => "Admin",
             'email' => "admin@gmail.com",
             'password' => Hash::make('12345678'),
             'is_role' => "superadmin",
             'mobile_number' => "7610604872",
-            'address' => "Balaghat"
+            'address' => "Balaghat",
+            'is_active' => true,
+            'terms_and_conditions' => true,
         ]);
     }
 }
